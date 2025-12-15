@@ -1,1 +1,858 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웨딩홀 파인더 - AI 추천 서비스</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* 네비게이션 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff6b9d;
+        }
+
+        /* 히어로 섹션 */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffeef8 0%, #e8d5ff 100%);
+            padding: 100px 30px 50px;
+        }
+
+        .hero .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #ff6b9d;
+            border: 2px solid #ff6b9d;
+        }
+
+        .btn-secondary:hover {
+            background: #ff6b9d;
+            color: white;
+        }
+
+        /* 이미지 플레이스홀더 */
+        .hero-image {
+            width: 100%;
+            height: 500px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-placeholder {
+            text-align: center;
+            color: #999;
+            padding: 20px;
+        }
+
+        .image-placeholder::before {
+            content: '📸';
+            font-size: 80px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* 문제 정의 섹션 */
+        .problem-section {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .problem-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .problem-card {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .problem-card .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .problem-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .problem-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 솔루션 섹션 */
+        .solution-section {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
+        }
+
+        .solution-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .solution-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .solution-content:nth-child(even) {
+            direction: rtl;
+        }
+
+        .solution-content:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .solution-text h3 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .solution-text p {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .solution-text ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .solution-text li {
+            padding: 10px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .solution-text li::before {
+            content: '✓';
+            color: #ff6b9d;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .solution-image {
+            width: 100%;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 기능 섹션 */
+        .features-section {
+            padding: 100px 30px;
+            background: white;
+        }
+
+        .features-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-card .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* 데모 섹션 */
+        .demo-section {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, #ffeef8 0%, #e8d5ff 100%);
+        }
+
+        .demo-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .demo-video {
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .demo-video img,
+        .demo-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 통계 섹션 */
+        .stats-section {
+            padding: 80px 30px;
+            background: white;
+        }
+
+        .stats-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .stat-card .number {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* 팀 섹션 */
+        .team-section {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
+        }
+
+        .team-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .team-card {
+            text-align: center;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-card h4 {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .team-card .role {
+            color: #ff6b9d;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-card p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* CTA 섹션 */
+        .cta-section {
+            padding: 100px 30px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
+            text-align: center;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-section .btn {
+            background: white;
+            color: #ff6b9d;
+        }
+
+        .cta-section .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* 푸터 */
+        footer {
+            padding: 60px 30px 30px;
+            background: #1a1a1a;
+            color: #999;
+        }
+
+        footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        footer .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        footer h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin-bottom: 12px;
+        }
+
+        footer a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #ff6b9d;
+        }
+
+        footer .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+
+        /* 반응형 */
+        @media (max-width: 968px) {
+            .hero .container,
+            .solution-content {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-grid,
+            .features-grid,
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            nav ul {
+                display: none;
+            }
+
+            footer .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .problem-grid,
+            .features-grid,
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* 스크롤 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 네비게이션 -->
+    <nav>
+        <div class="container">
+            <div class="logo">💍 웨딩홀 파인더</div>
+            <ul>
+                <li><a href="#home">홈</a></li>
+                <li><a href="#problem">문제점</a></li>
+                <li><a href="#solution">솔루션</a></li>
+                <li><a href="#demo">데모</a></li>
+                <li><a href="#team">팀</a></li>
+                <li><a href="#contact">연락</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>AI가 찾아주는<br>완벽한 웨딩홀</h1>
+                <p>복잡한 웨딩 준비, 이제 3분만에 해결하세요.<br>당신만을 위한 맞춤 웨딩홀을 AI가 추천해드립니다.</p>
+                <div class="hero-buttons">
+                    <a href="#demo" class="btn btn-primary">데모 체험하기</a>
+                    <a href="#contact" class="btn btn-secondary">문의하기</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <!-- 여기에 메인 이미지를 넣으세요 -->
+                <!-- <img src="images/hero-image.jpg" alt="웨딩홀 파인더"> -->
+                <div class="image-placeholder">
+                    <div>메인 비주얼 이미지</div>
+                    <small>권장 크기: 1000x1000px</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 문제 정의 섹션 -->
+    <section class="problem-section" id="problem">
+        <div class="container">
+            <h2 class="section-title fade-in">웨딩 준비, 이런 고민 있으셨나요?</h2>
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <div class="icon">😰</div>
+                    <h3>정보 과부하</h3>
+                    <p>수백 개의 웨딩홀 정보 속에서 어디서부터 시작해야 할지 막막합니다.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="icon">⏰</div>
+                    <h3>시간 부족</h3>
+                    <p>직장 생활과 병행하며 여러 웨딩홀을 직접 방문하기엔 시간이 너무 부족합니다.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <div class="icon">💸</div>
+                    <h3>예산 관리 어려움</h3>
+                    <p>예산 범위 내에서 최고의 퀄리티를 찾기란 쉽지 않습니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 솔루션 섹션 -->
+    <section class="solution-section" id="solution">
+        <div class="container">
+            <h2 class="section-title fade-in">AI 기반 맞춤 추천으로 해결합니다</h2>
+            
+            <div class="solution-content fade-in">
+                <div class="solution-text">
+                    <h3>🎯 3분만에 완벽한 매칭</h3>
+                    <p>간단한 질문 몇 가지만 답하면, AI가 당신의 선호도를 분석하여 최적의 웨딩홀을 추천합니다.</p>
+                    <ul>
+                        <li>지역, 예산, 하객 수 기반 필터링</li>
+                        <li>홀 분위기, 식사 스타일 선호도 반영</li>
+                        <li>중요도 우선순위에 따른 점수 계산</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <!-- 여기에 솔루션 설명 이미지를 넣으세요 -->
+                    <!-- <img src="images/solution-1.jpg" alt="AI 추천 과정"> -->
+                    <div class="image-placeholder">
+                        <div>AI 추천 과정 스크린샷</div>
+                        <small>권장 크기: 800x600px</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-content fade-in">
+                <div class="solution-text">
+                    <h3>📊 데이터 기반 의사결정</h3>
+                    <p>실제 고객 리뷰와 평점 데이터를 바탕으로 신뢰할 수 있는 추천을 제공합니다.</p>
+                    <ul>
+                        <li>실시간 업데이트되는 웨딩홀 정보</li>
+                        <li>검증된 고객 리뷰와 평점</li>
+                        <li>투명한 가격 비교</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <!-- 여기에 데이터 대시보드 이미지를 넣으세요 -->
+                    <!-- <img src="images/solution-2.jpg" alt="데이터 대시보드"> -->
+                    <div class="image-placeholder">
+                        <div>데이터 분석 화면</div>
+                        <small>권장 크기: 800x600px</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-content fade-in">
+                <div class="solution-text">
+                    <h3>🚀 원스톱 서비스</h3>
+                    <p>추천부터 견적 문의, 예약까지 모든 과정을 한 곳에서 해결하세요.</p>
+                    <ul>
+                        <li>실시간 견적 비교 및 문의</li>
+                        <li>상담 예약 원클릭 신청</li>
+                        <li>예약 현황 실시간 확인</li>
+                    </ul>
+                </div>
+                <div class="solution-image">
+                    <!-- 여기에 원스톱 서비스 플로우 이미지를 넣으세요 -->
+                    <!-- <img src="images/solution-3.jpg" alt="서비스 플로우"> -->
+                    <div class="image-placeholder">
+                        <div>서비스 프로세스 다이어그램</div>
+                        <small>권장 크기: 800x600px</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 기능 섹션 -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title fade-in">핵심 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="icon">🤖</div>
+                    <h4>AI 추천 엔진</h4>
+                    <p>선호도 기반 스마트 매칭</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">💰</div>
+                    <h4>예산 최적화</h4>
+                    <p>가성비 최고의 조합 제안</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">📍</div>
+                    <h4>지역 기반 검색</h4>
+                    <p>접근성 고려한 추천</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">⭐</div>
+                    <h4>리뷰 통합</h4>
+                    <p>실제 고객 후기 분석</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">📊</div>
+                    <h4>비교 분석</h4>
+                    <p>한눈에 보는 견적 비교</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">🔔</div>
+                    <h4>실시간 알림</h4>
+                    <p>견적 답변 즉시 확인</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">📱</div>
+                    <h4>모바일 최적화</h4>
+                    <p>언제 어디서나 접근</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="icon">🔒</div>
+                    <h4>개인정보 보호</h4>
+                    <p>안전한 데이터 관리</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 데모 섹션 -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 class="section-title fade-in">서비스 데모</h2>
+            <p style="color: #666; font-size: 18px; margin-bottom: 20px;">
+                실제 작동하는 AI 추천 시스템을 직접 체험해보세요
+            </p>
+            <div class="demo-video fade-in">
+                <!-- 여기에 데모 영상 또는 GIF를 넣으세요 -->
+                <!-- <video controls poster="images/demo-thumbnail.jpg">
+                    <source src="videos/demo.mp4" type="video/mp4">
+                </video> -->
+                <!-- 또는 이미지 -->
+                <!-- <img src="images/demo-screenshot.jpg" alt="서비스 데모"> -->
+                <div class="image-placeholder">
+                    <div>서비스 데모 영상/스크린샷</div>
+                    <small>권장 크기: 1600x900px (16:9 비율)<br>MP4 영상 또는 애니메이션 GIF</small>
+                </div>
+            </div>
+            <a href="#" class="btn btn-primary" style="margin-top: 30px;">직접 사용해보기</a>
+        </div>
+    </section>
+
+    <!-- 통계 섹션 -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="number">500+</div>
+                    <div class="label">제휴 웨딩홀</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="number">10,000+</div>
+                    <div class="label">누적 사용자</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="number">95%</div>
+                    <div class="label">만족도</div>
+                </div>
+                <div class="stat-card fade-in">
+                    <div class="number">3분</div>
+                    <div class="label">평균 추천 시간</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 팀 섹션 -->
+    <section class="team-section" id="team">
+        <div class="container">
+            <h2 class="section-title fade-in">팀 소개</h2>
+            <div class="team-grid">
+                <div class="team-card fade-in">
+                    <div class="team-photo">
+                        <!-- 여기에 팀원 사진을 넣으세요 -->
+                        <!-- <img src="images/team-1.jpg" alt="팀원 이름"> -->
+                        <div class="image-placeholder" style="font-size: 60px;">👤</div>
+                    </div>
+                    <h4>홍길동</h4>
+                    <div class="role">대표 / CEO</div>
+                    <p>웨딩 업계 10년 경력<br>서비스 기획 및 총괄</p>
+                </div>
+                <div class="team-card fade-in">
+                    <div class="team-photo">
+                        <!--
