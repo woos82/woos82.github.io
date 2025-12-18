@@ -427,3 +427,201 @@
                                 <option value="영등포구">영등포구</option>
                                 <option value="마포구">마포구</option>
                                 <option value="용산구">용산구</option>
+                                <option value="광진구">광진구</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700 mb-2 block">음식 종류</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('foodType', '뷔페'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >뷔페</button>
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('foodType', '코스'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >코스</button>
+                            </div>
+                        </div>
+
+                        <button
+                            onclick="handleSubmit()"
+                            class="w-full py-4 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-600 transition-colors shadow-md"
+                        >
+                            맞춤 웨딩홀 찾기
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResults() {
+            return `
+                <div class="max-w-6xl mx-auto px-4 py-12">
+                    <div class="text-center mb-4">
+                        <button 
+                            onclick="currentStep='form'; render();"
+                            class="text-gray-600 hover:text-gray-800"
+                        >
+                            ← 다시 검색
+                        </button>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm mb-4">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                            </svg>
+                            AI 분석 완료!
+                        </div>
+                        <h2 class="text-3xl font-bold mb-2">당신을 위한 맞춤 웨딩홀</h2>
+                        <p class="text-gray-600">입력하신 정보를 바탕으로 ${recommendations.length}개의 웨딩홀을 찾았습니다</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        ${recommendations.map((venue, index) => `
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                                <div class="p-6">
+                                    <div class="flex items-start justify-between mb-4">
+                                        <div class="flex items-start gap-4">
+                                            <div class="text-6xl">${venue.image}</div>
+                                            <div>
+                                                <div class="flex items-center gap-2 mb-1">
+                                                    ${index === 0 ? '<span class="px-2 py-1 bg-pink-500 text-white text-xs font-semibold rounded">BEST</span>' : ''}
+                                                    <h3 class="text-2xl font-bold text-gray-900">${venue.name}</h3>
+                                                </div>
+                                                <div class="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
+                                                    <span class="flex items-center gap-1">
+                                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                                        </svg>
+                                                        ${venue.location}
+                                                    </span>
+                                                    <span>•</span>
+                                                    <span>${venue.type}</span>
+                                                    <span>•</span>
+                                                    <span class="flex items-center gap-1">
+                                                        <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                                        </svg>
+                                                        ${venue.rating} (${venue.reviews}개 후기)
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-3xl font-bold text-pink-500 mb-1">${venue.match}%</div>
+                                            <div class="text-xs text-gray-500">매칭률</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">지하철 접근성</div>
+                                            <div class="font-semibold">도보 ${venue.subway}</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">주차</div>
+                                            <div class="font-semibold">${venue.parking}</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">수용 인원</div>
+                                            <div class="font-semibold">${venue.capacity}</div>
+                                        </div>
+                                        <div>
+                                            <div class="text-xs text-gray-500 mb-1">홀 분위기</div>
+                                            <div class="font-semibold">${venue.atmosphere}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-6 p-4 bg-pink-50 rounded-lg border-2 border-pink-100">
+                                        <div class="text-sm text-gray-600 mb-2">예상 견적</div>
+                                        <div class="grid grid-cols-3 gap-4">
+                                            <div>
+                                                <div class="text-xs text-gray-500">식대 (1인)</div>
+                                                <div class="text-lg font-bold text-gray-900">${venue.mealPrice}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-500">대관료</div>
+                                                <div class="text-lg font-bold text-gray-900">${venue.rentalFee}</div>
+                                            </div>
+                                            <div>
+                                                <div class="text-xs text-gray-500">총 예상 금액</div>
+                                                <div class="text-lg font-bold text-pink-500">
+                                                    ${(parseInt(venue.mealPrice.replace('만원', '')) * parseInt(formData.guests) + parseInt(venue.rentalFee.replace('만원', ''))).toLocaleString()}만원
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 text-xs text-gray-500">* ${formData.guests}명 기준 예상 견적입니다</div>
+                                    </div>
+
+                                    <div class="flex gap-3 flex-wrap">
+                                        <a
+                                            href="tel:${venue.phone}"
+                                            class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium"
+                                        >
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                                            </svg>
+                                            전화 문의
+                                        </a>
+                                        <a
+                                            href="${venue.website}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium"
+                                        >
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+                                            </svg>
+                                            홈페이지
+                                        </a>
+                                        <a
+                                            href="https://instagram.com/${venue.instagram.replace('@', '')}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="flex-1 min-w-[120px] px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-colors flex items-center justify-center gap-2 font-medium"
+                                        >
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+                                            </svg>
+                                            인스타그램
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div class="mt-12 p-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl text-white text-center">
+                        <h3 class="text-2xl font-bold mb-3">스드메도 함께 찾아보세요!</h3>
+                        <p class="mb-6 opacity-90">
+                            웨딩홀을 정하셨다면, 이제 스튜디오·드레스·메이크업도 AI 추천으로 완벽하게 준비하세요
+                        </p>
+                        <button class="px-8 py-3 bg-white text-pink-500 rounded-lg font-semibold hover:shadow-lg transition-shadow">
+                            스드메 추천 받기 →
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            if (currentStep === 'home') {
+                app.innerHTML = renderHome();
+            } else if (currentStep === 'form') {
+                app.innerHTML = renderForm();
+            } else if (currentStep === 'results') {
+                app.innerHTML = renderResults();
+            }
+        }
+
+        // 초기 렌더링
+        render();
+    </script>
+</body>
+</html>
