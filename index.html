@@ -3,974 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웨딩홀 파인더 - AI 추천 서비스</title>
+    <title>웨딩메이트 - AI 웨딩 플래너</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
-
-        /* 네비게이션 */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-            z-index: 1000;
-            padding: 20px 0;
-        }
-
-        nav .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav .logo {
-            font-size: 24px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #ff6b9d;
-        }
-
-        /* 히어로 섹션 */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #ffeef8 0%, #e8d5ff 100%);
-            padding: 100px 30px 50px;
-        }
-
-        .hero .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-size: 56px;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 20px;
-            color: #666;
-            margin-bottom: 30px;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
-            color: white;
-            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #ff6b9d;
-            border: 2px solid #ff6b9d;
-        }
-
-        .btn-secondary:hover {
-            background: #ff6b9d;
-            color: white;
-        }
-
-        /* 이미지 플레이스홀더 */
-        .hero-image {
-            width: 100%;
-            height: 500px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-placeholder {
-            text-align: center;
-            color: #999;
-            padding: 20px;
-        }
-
-        .image-placeholder::before {
-            content: '📸';
-            font-size: 80px;
-            display: block;
-            margin-bottom: 15px;
-        }
-
-        /* 문제 정의 섹션 */
-        .problem-section {
-            padding: 100px 30px;
-            background: white;
-        }
-
-        .problem-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 42px;
-            margin-bottom: 60px;
-            color: #333;
-        }
-
-        .problem-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .problem-card {
-            background: #f8f9fa;
-            padding: 40px 30px;
-            border-radius: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .problem-card .icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-        }
-
-        .problem-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        .problem-card p {
-            color: #666;
-            line-height: 1.8;
-        }
-
-        /* 솔루션 섹션 */
-        .solution-section {
-            padding: 100px 30px;
-            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
-        }
-
-        .solution-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .solution-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-bottom: 80px;
-        }
-
-        .solution-content:nth-child(even) {
-            direction: rtl;
-        }
-
-        .solution-content:nth-child(even) > * {
-            direction: ltr;
-        }
-
-        .solution-text h3 {
-            font-size: 32px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .solution-text p {
-            font-size: 18px;
-            color: #666;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .solution-text ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .solution-text li {
-            padding: 10px 0;
-            color: #666;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .solution-text li::before {
-            content: '✓';
-            color: #ff6b9d;
-            font-weight: bold;
-            font-size: 20px;
-        }
-
-        .solution-image {
-            width: 100%;
-            height: 400px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .solution-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 기능 섹션 */
-        .features-section {
-            padding: 100px 30px;
-            background: white;
-        }
-
-        .features-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 30px 20px;
-            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
-            border-radius: 15px;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: scale(1.05);
-        }
-
-        .feature-card .icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
-
-        .feature-card h4 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .feature-card p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* 데모 섹션 */
-        .demo-section {
-            padding: 100px 30px;
-            background: linear-gradient(135deg, #ffeef8 0%, #e8d5ff 100%);
-        }
-
-        .demo-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .demo-video {
-            width: 100%;
-            max-width: 900px;
-            height: 500px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .demo-video img,
-        .demo-video video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* 통계 섹션 */
-        .stats-section {
-            padding: 80px 30px;
-            background: white;
-        }
-
-        .stats-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 40px;
-        }
-
-        .stat-card {
-            text-align: center;
-            padding: 30px;
-        }
-
-        .stat-card .number {
-            font-size: 48px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .stat-card .label {
-            font-size: 16px;
-            color: #666;
-        }
-
-        /* 팀 섹션 */
-        .team-section {
-            padding: 100px 30px;
-            background: linear-gradient(135deg, #fff5f9 0%, #f8f0ff 100%);
-        }
-
-        .team-section .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .team-card {
-            text-align: center;
-            background: white;
-            padding: 40px 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-
-        .team-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .team-photo {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #ffd1dc 0%, #e8d5ff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .team-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .team-card h4 {
-            font-size: 22px;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        .team-card .role {
-            color: #ff6b9d;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .team-card p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* CTA 섹션 */
-        .cta-section {
-            padding: 100px 30px;
-            background: linear-gradient(135deg, #ff6b9d 0%, #c471ed 100%);
-            text-align: center;
-            color: white;
-        }
-
-        .cta-section h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-        }
-
-        .cta-section p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            opacity: 0.9;
-        }
-
-        .cta-section .btn {
-            background: white;
-            color: #ff6b9d;
-        }
-
-        .cta-section .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        /* 푸터 */
-        footer {
-            padding: 60px 30px 30px;
-            background: #1a1a1a;
-            color: #999;
-        }
-
-        footer .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        footer .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 40px;
-        }
-
-        footer h4 {
-            color: white;
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
-
-        footer ul {
-            list-style: none;
-        }
-
-        footer li {
-            margin-bottom: 12px;
-        }
-
-        footer a {
-            color: #999;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        footer a:hover {
-            color: #ff6b9d;
-        }
-
-        footer .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #333;
-        }
-
-        /* 반응형 */
-        @media (max-width: 968px) {
-            .hero .container,
-            .solution-content {
-                grid-template-columns: 1fr;
-            }
-
-            .problem-grid,
-            .features-grid,
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            nav ul {
-                display: none;
-            }
-
-            footer .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 640px) {
-            .problem-grid,
-            .features-grid,
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
-
-        /* 스크롤 애니메이션 */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s, transform 0.6s;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
+            font-family: 'Noto Sans KR', sans-serif;
         }
     </style>
 </head>
-<body>
-    <!-- 네비게이션 -->
-    <nav>
-        <div class="container">
-            <div class="logo">💍 웨딩홀 파인더</div>
-            <ul>
-                <li><a href="#home">홈</a></li>
-                <li><a href="#problem">문제점</a></li>
-                <li><a href="#solution">솔루션</a></li>
-                <li><a href="#demo">데모</a></li>
-                <li><a href="#team">팀</a></li>
-                <li><a href="#contact">연락</a></li>
-            </ul>
+<body class="bg-gradient-to-br from-pink-50 via-white to-purple-50">
+    
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span class="text-2xl font-bold text-gray-800">웨딩메이트</span>
+            </div>
+            <nav class="hidden md:flex gap-6 text-sm">
+                <a href="#" class="text-gray-600 hover:text-pink-500">웨딩홀</a>
+                <a href="#" class="text-gray-600 hover:text-pink-500">스드메</a>
+                <a href="#" class="text-gray-600 hover:text-pink-500">커뮤니티</a>
+                <a href="#" class="text-gray-600 hover:text-pink-500">후기</a>
+            </nav>
+            <button class="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+                로그인
+            </button>
         </div>
-    </nav>
+    </header>
 
-    <!-- 히어로 섹션 -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>AI가 찾아주는<br>완벽한 웨딩홀</h1>
-                <p>복잡한 웨딩 준비, 이제 3분만에 해결하세요.<br>당신만을 위한 맞춤 웨딩홀을 AI가 추천해드립니다.</p>
-                <div class="hero-buttons">
-                    <a href="#demo" class="btn btn-primary">데모 체험하기</a>
-                    <a href="#contact" class="btn btn-secondary">문의하기</a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <!-- 여기에 메인 이미지를 넣으세요 -->
-                <!-- <img src="images/hero-image.jpg" alt="웨딩홀 파인더"> -->
-                <div class="image-placeholder">
-                    <div>메인 비주얼 이미지</div>
-                    <small>권장 크기: 1000x1000px</small>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 문제 정의 섹션 -->
-    <section class="problem-section" id="problem">
-        <div class="container">
-            <h2 class="section-title fade-in">웨딩 준비, 이런 고민 있으셨나요?</h2>
-            <div class="problem-grid">
-                <div class="problem-card fade-in">
-                    <div class="icon">😰</div>
-                    <h3>정보 과부하</h3>
-                    <p>수백 개의 웨딩홀 정보 속에서 어디서부터 시작해야 할지 막막합니다.</p>
-                </div>
-                <div class="problem-card fade-in">
-                    <div class="icon">⏰</div>
-                    <h3>시간 부족</h3>
-                    <p>직장 생활과 병행하며 여러 웨딩홀을 직접 방문하기엔 시간이 너무 부족합니다.</p>
-                </div>
-                <div class="problem-card fade-in">
-                    <div class="icon">💸</div>
-                    <h3>예산 관리 어려움</h3>
-                    <p>예산 범위 내에서 최고의 퀄리티를 찾기란 쉽지 않습니다.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 솔루션 섹션 -->
-    <section class="solution-section" id="solution">
-        <div class="container">
-            <h2 class="section-title fade-in">AI 기반 맞춤 추천으로 해결합니다</h2>
-            
-            <div class="solution-content fade-in">
-                <div class="solution-text">
-                    <h3>🎯 3분만에 완벽한 매칭</h3>
-                    <p>간단한 질문 몇 가지만 답하면, AI가 당신의 선호도를 분석하여 최적의 웨딩홀을 추천합니다.</p>
-                    <ul>
-                        <li>지역, 예산, 하객 수 기반 필터링</li>
-                        <li>홀 분위기, 식사 스타일 선호도 반영</li>
-                        <li>중요도 우선순위에 따른 점수 계산</li>
-                    </ul>
-                </div>
-                <div class="solution-image">
-                    <!-- 여기에 솔루션 설명 이미지를 넣으세요 -->
-                    <!-- <img src="images/solution-1.jpg" alt="AI 추천 과정"> -->
-                    <div class="image-placeholder">
-                        <div>AI 추천 과정 스크린샷</div>
-                        <small>권장 크기: 800x600px</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="solution-content fade-in">
-                <div class="solution-text">
-                    <h3>📊 데이터 기반 의사결정</h3>
-                    <p>실제 고객 리뷰와 평점 데이터를 바탕으로 신뢰할 수 있는 추천을 제공합니다.</p>
-                    <ul>
-                        <li>실시간 업데이트되는 웨딩홀 정보</li>
-                        <li>검증된 고객 리뷰와 평점</li>
-                        <li>투명한 가격 비교</li>
-                    </ul>
-                </div>
-                <div class="solution-image">
-                    <!-- 여기에 데이터 대시보드 이미지를 넣으세요 -->
-                    <!-- <img src="images/solution-2.jpg" alt="데이터 대시보드"> -->
-                    <div class="image-placeholder">
-                        <div>데이터 분석 화면</div>
-                        <small>권장 크기: 800x600px</small>
-                    </div>
-                </div>
-            </div>
-
-            <div class="solution-content fade-in">
-                <div class="solution-text">
-                    <h3>🚀 원스톱 서비스</h3>
-                    <p>추천부터 견적 문의, 예약까지 모든 과정을 한 곳에서 해결하세요.</p>
-                    <ul>
-                        <li>실시간 견적 비교 및 문의</li>
-                        <li>상담 예약 원클릭 신청</li>
-                        <li>예약 현황 실시간 확인</li>
-                    </ul>
-                </div>
-                <div class="solution-image">
-                    <!-- 여기에 원스톱 서비스 플로우 이미지를 넣으세요 -->
-                    <!-- <img src="images/solution-3.jpg" alt="서비스 플로우"> -->
-                    <div class="image-placeholder">
-                        <div>서비스 프로세스 다이어그램</div>
-                        <small>권장 크기: 800x600px</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 기능 섹션 -->
-    <section class="features-section">
-        <div class="container">
-            <h2 class="section-title fade-in">핵심 기능</h2>
-            <div class="features-grid">
-                <div class="feature-card fade-in">
-                    <div class="icon">🤖</div>
-                    <h4>AI 추천 엔진</h4>
-                    <p>선호도 기반 스마트 매칭</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">💰</div>
-                    <h4>예산 최적화</h4>
-                    <p>가성비 최고의 조합 제안</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">📍</div>
-                    <h4>지역 기반 검색</h4>
-                    <p>접근성 고려한 추천</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">⭐</div>
-                    <h4>리뷰 통합</h4>
-                    <p>실제 고객 후기 분석</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">📊</div>
-                    <h4>비교 분석</h4>
-                    <p>한눈에 보는 견적 비교</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">🔔</div>
-                    <h4>실시간 알림</h4>
-                    <p>견적 답변 즉시 확인</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">📱</div>
-                    <h4>모바일 최적화</h4>
-                    <p>언제 어디서나 접근</p>
-                </div>
-                <div class="feature-card fade-in">
-                    <div class="icon">🔒</div>
-                    <h4>개인정보 보호</h4>
-                    <p>안전한 데이터 관리</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 데모 섹션 -->
-    <section class="demo-section" id="demo">
-        <div class="container">
-            <h2 class="section-title fade-in">서비스 데모</h2>
-            <p style="color: #666; font-size: 18px; margin-bottom: 20px;">
-                실제 작동하는 AI 추천 시스템을 직접 체험해보세요
-            </p>
-            <div class="demo-video fade-in">
-                <!-- 여기에 데모 영상 또는 GIF를 넣으세요 -->
-                <!-- <video controls poster="images/demo-thumbnail.jpg">
-                    <source src="videos/demo.mp4" type="video/mp4">
-                </video> -->
-                <!-- 또는 이미지 -->
-                <!-- <img src="images/demo-screenshot.jpg" alt="서비스 데모"> -->
-                <div class="image-placeholder">
-                    <div>서비스 데모 영상/스크린샷</div>
-                    <small>권장 크기: 1600x900px (16:9 비율)<br>MP4 영상 또는 애니메이션 GIF</small>
-                </div>
-            </div>
-            <a href="#" class="btn btn-primary" style="margin-top: 30px;">직접 사용해보기</a>
-        </div>
-    </section>
-
-    <!-- 통계 섹션 -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card fade-in">
-                    <div class="number">500+</div>
-                    <div class="label">제휴 웨딩홀</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="number">10,000+</div>
-                    <div class="label">누적 사용자</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="number">95%</div>
-                    <div class="label">만족도</div>
-                </div>
-                <div class="stat-card fade-in">
-                    <div class="number">3분</div>
-                    <div class="label">평균 추천 시간</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 팀 섹션 -->
-    <section class="team-section" id="team">
-        <div class="container">
-            <h2 class="section-title fade-in">팀 소개</h2>
-            <div class="team-grid">
-                <div class="team-card fade-in">
-                    <div class="team-photo">
-                        <!-- 여기에 팀원 사진을 넣으세요 -->
-                        <!-- <img src="images/team-4.jpg" alt="팀원 이름"> -->
-                        <div class="image-placeholder" style="font-size: 60px;">👤</div>
-                    </div>
-                    <h4>박민수</h4>
-                    <div class="role">마케팅 매니저</div>
-                    <p>디지털 마케팅 전문<br>비즈니스 전략 수립</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA 섹션 -->
-    <section class="cta-section" id="contact">
-        <div class="container">
-            <h2 class="fade-in">지금 바로 시작하세요</h2>
-            <p class="fade-in">완벽한 웨딩홀을 찾는 여정, 저희가 함께하겠습니다</p>
-            <a href="mailto:contact@wedding-finder.com" class="btn fade-in">문의하기</a>
-        </div>
-    </section>
-
-    <!-- 푸터 -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h4>웨딩홀 파인더</h4>
-                    <p>AI 기반 맞춤 웨딩홀 추천 서비스<br>
-                    행복한 시작을 위한 완벽한 선택</p>
-                </div>
-                <div>
-                    <h4>서비스</h4>
-                    <ul>
-                        <li><a href="#">웨딩홀 추천</a></li>
-                        <li><a href="#">견적 비교</a></li>
-                        <li><a href="#">예약 관리</a></li>
-                        <li><a href="#">리뷰 보기</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>회사</h4>
-                    <ul>
-                        <li><a href="#">회사 소개</a></li>
-                        <li><a href="#">팀</a></li>
-                        <li><a href="#">채용</a></li>
-                        <li><a href="#">파트너십</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>문의</h4>
-                    <ul>
-                        <li><a href="mailto:contact@wedding-finder.com">이메일</a></li>
-                        <li><a href="tel:02-1234-5678">전화: 02-1234-5678</a></li>
-                        <li><a href="#">카카오톡</a></li>
-                        <li><a href="#">인스타그램</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 웨딩홀 파인더. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+    <!-- Main Content -->
+    <div id="app"></div>
 
     <script>
-        // 스크롤 애니메이션
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        const venues = [
+            {
+                id: 1,
+                name: "그랜드 하얏트 서울",
+                type: "호텔",
+                location: "용산구",
+                atmosphere: "밝음",
+                subway: "5분",
+                parking: "500대",
+                capacity: "300명",
+                mealPrice: "8만원",
+                rentalFee: "200만원",
+                foodType: "코스",
+                rating: 4.8,
+                reviews: 234,
+                phone: "02-797-1234",
+                website: "https://grandhyattseoul.com",
+                instagram: "@grandhyattseoul",
+                image: "🏨"
+            },
+            {
+                id: 2,
+                name: "엘타워 그레이스",
+                type: "웨딩홀",
+                location: "강남구",
+                atmosphere: "어두움",
+                subway: "3분",
+                parking: "300대",
+                capacity: "250명",
+                mealPrice: "6만원",
+                rentalFee: "150만원",
+                foodType: "뷔페",
+                rating: 4.6,
+                reviews: 189,
+                phone: "02-3461-5000",
+                website: "https://eltower.co.kr",
+                instagram: "@eltowergrace",
+                image: "💒"
+            },
+            {
+                id: 3,
+                name: "더컨벤션 여의도",
+                type: "웨딩홀",
+                location: "영등포구",
+                atmosphere: "밝음",
+                subway: "2분",
+                parking: "400대",
+                capacity: "200명",
+                mealPrice: "5만원",
+                rentalFee: "120만원",
+                foodType: "뷔페",
+                rating: 4.5,
+                reviews: 156,
+                phone: "02-761-7000",
+                website: "https://theconvention.co.kr",
+                instagram: "@theconvention_yeouido",
+                image: "💒"
+            },
+            {
+                id: 4,
+                name: "노블발렌티 대치",
+                type: "웨딩홀",
+                location: "강남구",
+                atmosphere: "밝음",
+                subway: "7분",
+                parking: "200대",
+                capacity: "180명",
+                mealPrice: "7만원",
+                rentalFee: "180만원",
+                foodType: "코스",
+                rating: 4.7,
+                reviews: 142,
+                phone: "02-566-0001",
+                website: "https://noblevalenti.com",
+                instagram: "@noblevalenti_daechi",
+                image: "💒"
+            },
+            {
+                id: 5,
+                name: "워커힐 호텔",
+                type: "호텔",
+                location: "광진구",
+                atmosphere: "밝음",
+                subway: "15분",
+                parking: "600대",
+                capacity: "350명",
+                mealPrice: "9만원",
+                rentalFee: "250만원",
+                foodType: "코스",
+                rating: 4.9,
+                reviews: 278,
+                phone: "02-450-4500",
+                website: "https://walkerhill.com",
+                instagram: "@walkerhill_official",
+                image: "🏨"
+            }
+        ];
+
+        let currentStep = 'home';
+        let formData = {
+            date: '',
+            guests: '',
+            budget: '',
+            mealBudget: '',
+            venueType: '',
+            atmosphere: '',
+            location: '',
+            foodType: ''
         };
+        let recommendations = [];
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        function calculateMatch(venue) {
+            let score = 0;
+            let maxScore = 0;
 
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+            if (formData.budget && formData.mealBudget && formData.guests) {
+                maxScore += 30;
+                const totalBudget = parseInt(formData.budget);
+                const venueMealPrice = parseInt(venue.mealPrice.replace('만원', ''));
+                const venueRentalFee = parseInt(venue.rentalFee.replace('만원', ''));
+                const estimatedTotal = (venueMealPrice * parseInt(formData.guests)) + venueRentalFee;
+                
+                const budgetDiff = Math.abs(totalBudget - estimatedTotal) / totalBudget;
+                if (budgetDiff < 0.1) score += 30;
+                else if (budgetDiff < 0.2) score += 20;
+                else if (budgetDiff < 0.3) score += 10;
+            }
 
-        // 부드러운 스크롤
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html> 여기에 팀원 사진을 넣으세요 -->
-                        <!-- <img src="images/team-2.jpg" alt="팀원 이름"> -->
-                        <div class="image-placeholder" style="font-size: 60px;">👤</div>
+            if (formData.venueType) {
+                maxScore += 20;
+                if (venue.type === formData.venueType) score += 20;
+            }
+
+            if (formData.atmosphere) {
+                maxScore += 15;
+                if (venue.atmosphere === formData.atmosphere) score += 15;
+            }
+
+            if (formData.foodType) {
+                maxScore += 15;
+                if (venue.foodType === formData.foodType) score += 15;
+            }
+
+            maxScore += 10;
+            const subwayMin = parseInt(venue.subway);
+            if (subwayMin <= 5) score += 10;
+            else if (subwayMin <= 10) score += 5;
+
+            maxScore += 10;
+            score += (venue.rating / 5) * 10;
+
+            return maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+        }
+
+        function handleSubmit() {
+            const scoredVenues = venues.map(venue => ({
+                ...venue,
+                match: calculateMatch(venue)
+            }));
+
+            recommendations = scoredVenues.sort((a, b) => b.match - a.match).slice(0, 5);
+            currentStep = 'results';
+            render();
+        }
+
+        function updateFormData(field, value) {
+            formData[field] = value;
+        }
+
+        function renderHome() {
+            return `
+                <div class="max-w-7xl mx-auto px-4 py-16 text-center">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm mb-6">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                        </svg>
+                        AI가 찾아주는 나만의 완벽한 결혼식
                     </div>
-                    <h4>김철수</h4>
-                    <div class="role">CTO</div>
-                    <p>AI/ML 전문가<br>추천 알고리즘 개발</p>
-                </div>
-                <div class="team-card fade-in">
-                    <div class="team-photo">
-                        <!-- 여기에 팀원 사진을 넣으세요 -->
-                        <!-- <img src="images/team-3.jpg" alt="팀원 이름"> -->
-                        <div class="image-placeholder" style="font-size: 60px;">👤</div>
+                    
+                    <h1 class="text-5xl font-bold text-gray-900 mb-4">
+                        결혼 준비,<br />이제 쉽고 빠르게
+                    </h1>
+                    
+                    <p class="text-xl text-gray-600 mb-8">
+                        5분만에 완성하는 맞춤형 웨딩 플랜<br />
+                        AI가 여러분의 취향과 예산에 딱 맞는 웨딩홀과 스드메를 추천해드립니다
+                    </p>
+
+                    <button 
+                        onclick="currentStep='form'; render();"
+                        class="px-8 py-4 bg-pink-500 text-white rounded-xl text-lg font-semibold hover:bg-pink-600 shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2"
+                    >
+                        지금 시작하기
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+
+                    <div class="grid md:grid-cols-3 gap-8 mt-16">
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-3xl font-bold text-pink-500 mb-2">2,847</div>
+                            <div class="text-gray-600">누적 매칭 건수</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-3xl font-bold text-pink-500 mb-2">98.5%</div>
+                            <div class="text-gray-600">고객 만족도</div>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-3xl font-bold text-pink-500 mb-2">327만원</div>
+                            <div class="text-gray-600">평균 절감 금액</div>
+                        </div>
                     </div>
-                    <h4>이영희</h4>
-                    <div class="role">디자이너</div>
-                    <p>UX/UI 디자인<br>사용자 경험 최적화</p>
                 </div>
-                <div class="team-card fade-in">
-                    <div class="team-photo">
-                        <!-- 여기에 팀원 사진을 넣으세요 -->
-                        <!-- <img src="images/team-1.jpg" alt="팀원 이름"> -->
-                        <div class="image-placeholder" style="font-size: 60px;">👤</div>
+
+                <div class="bg-white py-16">
+                    <div class="max-w-7xl mx-auto px-4">
+                        <h2 class="text-3xl font-bold text-center mb-12">왜 웨딩메이트인가요?</h2>
+                        
+                        <div class="grid md:grid-cols-3 gap-8">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">AI 맞춤 추천</h3>
+                                <p class="text-gray-600">수백 개의 데이터를 분석해 나에게 딱 맞는 웨딩홀을 추천합니다</p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">투명한 가격</h3>
+                                <p class="text-gray-600">숨겨진 비용 없이 모든 견적을 투명하게 공개합니다</p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                    </svg>
+                                </div>
+                                <h3 class="text-xl font-semibold mb-2">실제 후기</h3>
+                                <p class="text-gray-600">검증된 예비부부들의 진솔한 후기를 확인하세요</p>
+                            </div>
+                        </div>
                     </div>
-                    <h4>홍길동</h4>
-                    <div class="role">대표 / CEO</div>
-                    <p>웨딩 업계 10년 경력<br>서비스 기획 및 총괄</p>
                 </div>
-                <div class="team-card fade-in">
-                    <div class="team-photo">
-                        <!--
+            `;
+        }
+
+        function renderForm() {
+            return `
+                <div class="max-w-3xl mx-auto px-4 py-12">
+                    <div class="text-center mb-8">
+                        <button 
+                            onclick="currentStep='home'; render();"
+                            class="text-gray-600 hover:text-gray-800 mb-4"
+                        >
+                            ← 돌아가기
+                        </button>
+                        <h2 class="text-3xl font-bold mb-2">웨딩홀 정보 입력</h2>
+                        <p class="text-gray-600">간단한 정보만 입력하면 AI가 최적의 웨딩홀을 찾아드립니다</p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                                </svg>
+                                예식 희망 날짜
+                            </label>
+                            <input
+                                type="date"
+                                id="date"
+                                onchange="updateFormData('date', this.value)"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+                                </svg>
+                                예상 하객 수
+                            </label>
+                            <input
+                                type="number"
+                                id="guests"
+                                onchange="updateFormData('guests', this.value)"
+                                placeholder="예: 200"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                                </svg>
+                                총 예산 (만원)
+                            </label>
+                            <input
+                                type="number"
+                                id="budget"
+                                onchange="updateFormData('budget', this.value)"
+                                placeholder="예: 3000"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+                                </svg>
+                                1인당 식대 예산 (만원)
+                            </label>
+                            <input
+                                type="number"
+                                id="mealBudget"
+                                onchange="updateFormData('mealBudget', this.value)"
+                                placeholder="예: 6"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            />
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700 mb-2 block">웨딩홀 타입</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('venueType', '호텔'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >호텔</button>
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('venueType', '웨딩홀'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >웨딩홀</button>
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('venueType', '채플'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >채플</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-sm font-medium text-gray-700 mb-2 block">홀 분위기</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('atmosphere', '밝음'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >밝음</button>
+                                <button
+                                    type="button"
+                                    onclick="updateFormData('atmosphere', '어두움'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
+                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
+                                >어두움</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
+                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                </svg>
+                                희망 지역
+                            </label>
+                            <select
+                                id="location"
+                                onchange="updateFormData('location', this.value)"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                            >
+                                <option value="">선택하세요</option>
+                                <option value="강남구">강남구</option>
+                                <option value="서초구">서초구</option>
+                                <option value="송파구">송파구</option>
+                                <option value="영등포구">영등포구</option>
+                                <option value="마포구">마포구</option>
+                                <option value="용산구">용산구</option>
