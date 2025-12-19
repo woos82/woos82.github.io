@@ -7,14 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-        }
+        body { font-family: 'Noto Sans KR', sans-serif; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-pink-50 via-white to-purple-50">
     
-    <!-- Header -->
     <header class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
             <div class="flex items-center gap-2">
@@ -23,492 +20,387 @@
                 </svg>
                 <span class="text-2xl font-bold text-gray-800">웨딩메이트</span>
             </div>
-            <nav class="hidden md:flex gap-6 text-sm">
-                <a href="#" class="text-gray-600 hover:text-pink-500">웨딩홀</a>
-                <a href="#" class="text-gray-600 hover:text-pink-500">스드메</a>
-                <a href="#" class="text-gray-600 hover:text-pink-500">커뮤니티</a>
-                <a href="#" class="text-gray-600 hover:text-pink-500">후기</a>
-            </nav>
-            <button class="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
-                로그인
-            </button>
+            <button class="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">로그인</button>
         </div>
     </header>
 
-    <!-- Main Content -->
     <div id="app"></div>
 
     <script>
         const venues = [
-            {
-                id: 1,
-                name: "그랜드 하얏트 서울",
-                type: "호텔",
-                location: "용산구",
-                atmosphere: "밝음",
-                subway: "5분",
-                parking: "500대",
-                capacity: "300명",
-                mealPrice: "8만원",
-                rentalFee: "200만원",
-                foodType: "코스",
-                rating: 4.8,
-                reviews: 234,
-                phone: "02-797-1234",
-                website: "https://grandhyattseoul.com",
-                instagram: "@grandhyattseoul",
-                image: "🏨"
-            },
-            {
-                id: 2,
-                name: "엘타워 그레이스",
-                type: "웨딩홀",
-                location: "강남구",
-                atmosphere: "어두움",
-                subway: "3분",
-                parking: "300대",
-                capacity: "250명",
-                mealPrice: "6만원",
-                rentalFee: "150만원",
-                foodType: "뷔페",
-                rating: 4.6,
-                reviews: 189,
-                phone: "02-3461-5000",
-                website: "https://eltower.co.kr",
-                instagram: "@eltowergrace",
-                image: "💒"
-            },
-            {
-                id: 3,
-                name: "더컨벤션 여의도",
-                type: "웨딩홀",
-                location: "영등포구",
-                atmosphere: "밝음",
-                subway: "2분",
-                parking: "400대",
-                capacity: "200명",
-                mealPrice: "5만원",
-                rentalFee: "120만원",
-                foodType: "뷔페",
-                rating: 4.5,
-                reviews: 156,
-                phone: "02-761-7000",
-                website: "https://theconvention.co.kr",
-                instagram: "@theconvention_yeouido",
-                image: "💒"
-            },
-            {
-                id: 4,
-                name: "노블발렌티 대치",
-                type: "웨딩홀",
-                location: "강남구",
-                atmosphere: "밝음",
-                subway: "7분",
-                parking: "200대",
-                capacity: "180명",
-                mealPrice: "7만원",
-                rentalFee: "180만원",
-                foodType: "코스",
-                rating: 4.7,
-                reviews: 142,
-                phone: "02-566-0001",
-                website: "https://noblevalenti.com",
-                instagram: "@noblevalenti_daechi",
-                image: "💒"
-            },
-            {
-                id: 5,
-                name: "워커힐 호텔",
-                type: "호텔",
-                location: "광진구",
-                atmosphere: "밝음",
-                subway: "15분",
-                parking: "600대",
-                capacity: "350명",
-                mealPrice: "9만원",
-                rentalFee: "250만원",
-                foodType: "코스",
-                rating: 4.9,
-                reviews: 278,
-                phone: "02-450-4500",
-                website: "https://walkerhill.com",
-                instagram: "@walkerhill_official",
-                image: "🏨"
-            }
+            {id: 1, name: "그랜드 하얏트 서울", type: "호텔", location: "용산구", atmosphere: "밝음", subway: "5분", parking: "500대", capacity: "300명", mealPrice: "8만원", rentalFee: "200만원", foodType: "코스", rating: 4.8, reviews: 234, phone: "02-797-1234", website: "https://www.google.com", instagram: "@grandhyattseoul", image: "🏨"},
+            {id: 2, name: "엘타워 그레이스", type: "웨딩홀", location: "강남구", atmosphere: "어두움", subway: "3분", parking: "300대", capacity: "250명", mealPrice: "6만원", rentalFee: "150만원", foodType: "뷔페", rating: 4.6, reviews: 189, phone: "02-3461-5000", website: "https://www.google.com", instagram: "@eltowergrace", image: "💒"},
+            {id: 3, name: "더컨벤션 여의도", type: "웨딩홀", location: "영등포구", atmosphere: "밝음", subway: "2분", parking: "400대", capacity: "200명", mealPrice: "5만원", rentalFee: "120만원", foodType: "뷔페", rating: 4.5, reviews: 156, phone: "02-761-7000", website: "https://www.google.com", instagram: "@theconvention", image: "💒"},
+            {id: 4, name: "노블발렌티 대치", type: "웨딩홀", location: "강남구", atmosphere: "밝음", subway: "7분", parking: "200대", capacity: "180명", mealPrice: "7만원", rentalFee: "180만원", foodType: "코스", rating: 4.7, reviews: 142, phone: "02-566-0001", website: "https://www.google.com", instagram: "@noblevalenti", image: "💒"},
+            {id: 5, name: "워커힐 호텔", type: "호텔", location: "광진구", atmosphere: "밝음", subway: "15분", parking: "600대", capacity: "350명", mealPrice: "9만원", rentalFee: "250만원", foodType: "코스", rating: 4.9, reviews: 278, phone: "02-450-4500", website: "https://www.google.com", instagram: "@walkerhill", image: "🏨"}
         ];
 
-        let currentStep = 'home';
-        let formData = {
-            date: '',
-            guests: '',
-            budget: '',
-            mealBudget: '',
-            venueType: '',
-            atmosphere: '',
-            location: '',
-            foodType: ''
+        let state = {
+            currentStep: 'home',
+            formStep: 1,
+            formData: {
+                date: '', guests: '', budget: '', mealBudget: '',
+                venueType: '', atmosphere: '', location: '', foodType: '',
+                priorities: []
+            },
+            recommendations: []
         };
-        let recommendations = [];
 
         function calculateMatch(venue) {
-            let score = 0;
-            let maxScore = 0;
+            let scores = {budget: 0, venueType: 0, atmosphere: 0, foodType: 0, accessibility: 0, rating: 0};
+            let maxScores = {budget: 30, venueType: 20, atmosphere: 15, foodType: 15, accessibility: 10, rating: 10};
 
-            if (formData.budget && formData.mealBudget && formData.guests) {
-                maxScore += 30;
-                const totalBudget = parseInt(formData.budget);
+            if (state.formData.budget && state.formData.mealBudget && state.formData.guests) {
+                const totalBudget = parseInt(state.formData.budget);
                 const venueMealPrice = parseInt(venue.mealPrice.replace('만원', ''));
                 const venueRentalFee = parseInt(venue.rentalFee.replace('만원', ''));
-                const estimatedTotal = (venueMealPrice * parseInt(formData.guests)) + venueRentalFee;
-                
+                const estimatedTotal = (venueMealPrice * parseInt(state.formData.guests)) + venueRentalFee;
                 const budgetDiff = Math.abs(totalBudget - estimatedTotal) / totalBudget;
-                if (budgetDiff < 0.1) score += 30;
-                else if (budgetDiff < 0.2) score += 20;
-                else if (budgetDiff < 0.3) score += 10;
+                if (budgetDiff < 0.1) scores.budget = 30;
+                else if (budgetDiff < 0.2) scores.budget = 20;
+                else if (budgetDiff < 0.3) scores.budget = 10;
             }
 
-            if (formData.venueType) {
-                maxScore += 20;
-                if (venue.type === formData.venueType) score += 20;
-            }
+            if (state.formData.venueType && venue.type === state.formData.venueType) scores.venueType = 20;
+            if (state.formData.atmosphere && venue.atmosphere === state.formData.atmosphere) scores.atmosphere = 15;
+            if (state.formData.foodType && venue.foodType === state.formData.foodType) scores.foodType = 15;
 
-            if (formData.atmosphere) {
-                maxScore += 15;
-                if (venue.atmosphere === formData.atmosphere) score += 15;
-            }
-
-            if (formData.foodType) {
-                maxScore += 15;
-                if (venue.foodType === formData.foodType) score += 15;
-            }
-
-            maxScore += 10;
             const subwayMin = parseInt(venue.subway);
-            if (subwayMin <= 5) score += 10;
-            else if (subwayMin <= 10) score += 5;
+            if (subwayMin <= 5) scores.accessibility = 10;
+            else if (subwayMin <= 10) scores.accessibility = 5;
 
-            maxScore += 10;
-            score += (venue.rating / 5) * 10;
+            scores.rating = (venue.rating / 5) * 10;
 
-            return maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
+            if (state.formData.priorities.length > 0) {
+                const weights = {1: 2.0, 2: 1.5, 3: 1.2};
+                state.formData.priorities.forEach((priority, index) => {
+                    const weight = weights[index + 1];
+                    const map = {
+                        budget: 'budget',
+                        location: 'accessibility',
+                        atmosphere: 'atmosphere',
+                        food: 'foodType',
+                        rating: 'rating',
+                        type: 'venueType'
+                    };
+                    const key = map[priority];
+                    if (key) {
+                        scores[key] *= weight;
+                        maxScores[key] *= weight;
+                    }
+                });
+            }
+
+            const totalScore = Object.values(scores).reduce((a, b) => a + b, 0);
+            const totalMax = Object.values(maxScores).reduce((a, b) => a + b, 0);
+            return totalMax > 0 ? Math.round((totalScore / totalMax) * 100) : 0;
         }
 
-        function handleSubmit() {
-            const scoredVenues = venues.map(venue => ({
-                ...venue,
-                match: calculateMatch(venue)
-            }));
-
-            recommendations = scoredVenues.sort((a, b) => b.match - a.match).slice(0, 5);
-            currentStep = 'results';
+        function nextStep() {
+            if (state.formStep === 1) {
+                if (!state.formData.date || !state.formData.guests || !state.formData.budget || !state.formData.mealBudget) {
+                    alert('모든 정보를 입력해주세요!');
+                    return;
+                }
+            } else if (state.formStep === 2) {
+                if (!state.formData.venueType || !state.formData.atmosphere || !state.formData.location || !state.formData.foodType) {
+                    alert('모든 항목을 선택해주세요!');
+                    return;
+                }
+            } else if (state.formStep === 3) {
+                if (state.formData.priorities.length === 0) {
+                    alert('최소 1개 이상의 우선순위를 선택해주세요!');
+                    return;
+                }
+                const scored = venues.map(v => ({...v, match: calculateMatch(v)}));
+                state.recommendations = scored.sort((a, b) => b.match - a.match).slice(0, 5);
+                state.currentStep = 'results';
+                render();
+                return;
+            }
+            state.formStep++;
             render();
         }
 
-        function updateFormData(field, value) {
-            formData[field] = value;
+        function prevStep() {
+            state.formStep--;
+            render();
         }
 
-        function renderHome() {
-            return `
-                <div class="max-w-7xl mx-auto px-4 py-16 text-center">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm mb-6">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                        </svg>
-                        AI가 찾아주는 나만의 완벽한 결혼식
-                    </div>
-                    
-                    <h1 class="text-5xl font-bold text-gray-900 mb-4">
-                        결혼 준비,<br />이제 쉽고 빠르게
-                    </h1>
-                    
-                    <p class="text-xl text-gray-600 mb-8">
-                        5분만에 완성하는 맞춤형 웨딩 플랜<br />
-                        AI가 여러분의 취향과 예산에 딱 맞는 웨딩홀과 스드메를 추천해드립니다
-                    </p>
-
-                    <button 
-                        onclick="currentStep='form'; render();"
-                        class="px-8 py-4 bg-pink-500 text-white rounded-xl text-lg font-semibold hover:bg-pink-600 shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2"
-                    >
-                        지금 시작하기
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg>
-                    </button>
-
-                    <div class="grid md:grid-cols-3 gap-8 mt-16">
-                        <div class="bg-white p-6 rounded-xl shadow-sm">
-                            <div class="text-3xl font-bold text-pink-500 mb-2">2,847</div>
-                            <div class="text-gray-600">누적 매칭 건수</div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-sm">
-                            <div class="text-3xl font-bold text-pink-500 mb-2">98.5%</div>
-                            <div class="text-gray-600">고객 만족도</div>
-                        </div>
-                        <div class="bg-white p-6 rounded-xl shadow-sm">
-                            <div class="text-3xl font-bold text-pink-500 mb-2">327만원</div>
-                            <div class="text-gray-600">평균 절감 금액</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white py-16">
-                    <div class="max-w-7xl mx-auto px-4">
-                        <h2 class="text-3xl font-bold text-center mb-12">왜 웨딩메이트인가요?</h2>
-                        
-                        <div class="grid md:grid-cols-3 gap-8">
-                            <div class="text-center">
-                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">AI 맞춤 추천</h3>
-                                <p class="text-gray-600">수백 개의 데이터를 분석해 나에게 딱 맞는 웨딩홀을 추천합니다</p>
-                            </div>
-
-                            <div class="text-center">
-                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">투명한 가격</h3>
-                                <p class="text-gray-600">숨겨진 비용 없이 모든 견적을 투명하게 공개합니다</p>
-                            </div>
-
-                            <div class="text-center">
-                                <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                    <svg class="text-pink-500 w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                                    </svg>
-                                </div>
-                                <h3 class="text-xl font-semibold mb-2">실제 후기</h3>
-                                <p class="text-gray-600">검증된 예비부부들의 진솔한 후기를 확인하세요</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
+        function goHome() {
+            state.currentStep = 'home';
+            render();
         }
 
-        function renderForm() {
-            return `
-                <div class="max-w-3xl mx-auto px-4 py-12">
-                    <div class="text-center mb-8">
-                        <button 
-                            onclick="currentStep='home'; render();"
-                            class="text-gray-600 hover:text-gray-800 mb-4"
-                        >
-                            ← 돌아가기
-                        </button>
-                        <h2 class="text-3xl font-bold mb-2">웨딩홀 정보 입력</h2>
-                        <p class="text-gray-600">간단한 정보만 입력하면 AI가 최적의 웨딩홀을 찾아드립니다</p>
-                    </div>
-
-                    <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
-                        <div>
-                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
-                                </svg>
-                                예식 희망 날짜
-                            </label>
-                            <input
-                                type="date"
-                                id="date"
-                                onchange="updateFormData('date', this.value)"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                                </svg>
-                                예상 하객 수
-                            </label>
-                            <input
-                                type="number"
-                                id="guests"
-                                onchange="updateFormData('guests', this.value)"
-                                placeholder="예: 200"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
-                                </svg>
-                                총 예산 (만원)
-                            </label>
-                            <input
-                                type="number"
-                                id="budget"
-                                onchange="updateFormData('budget', this.value)"
-                                placeholder="예: 3000"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
-                                </svg>
-                                1인당 식대 예산 (만원)
-                            </label>
-                            <input
-                                type="number"
-                                id="mealBudget"
-                                onchange="updateFormData('mealBudget', this.value)"
-                                placeholder="예: 6"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                            />
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-medium text-gray-700 mb-2 block">웨딩홀 타입</label>
-                            <div class="grid grid-cols-3 gap-3">
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('venueType', '호텔'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >호텔</button>
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('venueType', '웨딩홀'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >웨딩홀</button>
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('venueType', '채플'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >채플</button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-medium text-gray-700 mb-2 block">홀 분위기</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('atmosphere', '밝음'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >밝음</button>
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('atmosphere', '어두움'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >어두움</button>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="flex items-center gap-2 text-sm font-medium text-gray-700 mb-2">
-                                <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                                </svg>
-                                희망 지역
-                            </label>
-                            <select
-                                id="location"
-                                onchange="updateFormData('location', this.value)"
-                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                            >
-                                <option value="">선택하세요</option>
-                                <option value="강남구">강남구</option>
-                                <option value="서초구">서초구</option>
-                                <option value="송파구">송파구</option>
-                                <option value="영등포구">영등포구</option>
-                                <option value="마포구">마포구</option>
-                                <option value="용산구">용산구</option>
-                                <option value="광진구">광진구</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-medium text-gray-700 mb-2 block">음식 종류</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('foodType', '뷔페'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >뷔페</button>
-                                <button
-                                    type="button"
-                                    onclick="updateFormData('foodType', '코스'); this.parentElement.querySelectorAll('button').forEach(b => b.className = 'px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300'); this.className = 'px-4 py-3 rounded-lg border-2 transition-all border-pink-500 bg-pink-50 text-pink-600 font-medium';"
-                                    class="px-4 py-3 rounded-lg border-2 transition-all border-gray-200 hover:border-gray-300"
-                                >코스</button>
-                            </div>
-                        </div>
-
-                        <button
-                            onclick="handleSubmit()"
-                            class="w-full py-4 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-600 transition-colors shadow-md"
-                        >
-                            맞춤 웨딩홀 찾기
-                        </button>
-                    </div>
-                </div>
-            `;
+        function startForm() {
+            state.currentStep = 'form';
+            state.formStep = 1;
+            render();
         }
 
-        function renderResults() {
-            return `
-                <div class="max-w-6xl mx-auto px-4 py-12">
-                    <div class="text-center mb-4">
-                        <button 
-                            onclick="currentStep='form'; render();"
-                            class="text-gray-600 hover:text-gray-800"
-                        >
-                            ← 다시 검색
-                        </button>
-                    </div>
-                    
-                    <div class="text-center mb-8">
-                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm mb-4">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
-                            </svg>
-                            AI 분석 완료!
-                        </div>
-                        <h2 class="text-3xl font-bold mb-2">당신을 위한 맞춤 웨딩홀</h2>
-                        <p class="text-gray-600">입력하신 정보를 바탕으로 ${recommendations.length}개의 웨딩홀을 찾았습니다</p>
-                    </div>
+        function backToForm() {
+            state.currentStep = 'form';
+            state.formStep = 3;
+            render();
+        }
 
-                    <div class="space-y-6">
-                        ${recommendations.map((venue, index) => `
-                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                                <div class="p-6">
-                                    <div class="flex items-start justify-between mb-4">
+        function togglePriority(priority) {
+            const idx = state.formData.priorities.indexOf(priority);
+            if (idx > -1) {
+                state.formData.priorities.splice(idx, 1);
+            } else {
+                if (state.formData.priorities.length < 3) {
+                    state.formData.priorities.push(priority);
+                } else {
+                    alert('최대 3개까지 선택 가능합니다!');
+                    return;
+                }
+            }
+            render();
+        }
+
+        function getPriorityRank(p) {
+            const idx = state.formData.priorities.indexOf(p);
+            return idx >= 0 ? idx + 1 : null;
+        }
+
+        function updateField(field, value) {
+            state.formData[field] = value;
+        }
+
+        function selectOption(field, value) {
+            state.formData[field] = value;
+            render();
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            
+            if (state.currentStep === 'home') {
+                app.innerHTML = `
+                    <div class="max-w-7xl mx-auto px-4 py-16 text-center">
+                        <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm mb-6">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                            AI가 찾아주는 나만의 완벽한 결혼식
+                        </div>
+                        <h1 class="text-5xl font-bold text-gray-900 mb-4">결혼 준비,<br/>이제 쉽고 빠르게</h1>
+                        <p class="text-xl text-gray-600 mb-8">3단계만 거치면 완성되는 맞춤형 웨딩 플랜<br/>AI가 여러분의 취향과 예산에 딱 맞는 웨딩홀을 추천해드립니다</p>
+                        <button onclick="startForm()" class="px-8 py-4 bg-pink-500 text-white rounded-xl text-lg font-semibold hover:bg-pink-600 shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2">
+                            지금 시작하기
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                        <div class="grid md:grid-cols-3 gap-8 mt-16">
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <div class="text-3xl font-bold text-pink-500 mb-2">2,847</div>
+                                <div class="text-gray-600">누적 매칭 건수</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <div class="text-3xl font-bold text-pink-500 mb-2">98.5%</div>
+                                <div class="text-gray-600">고객 만족도</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm">
+                                <div class="text-3xl font-bold text-pink-500 mb-2">327만원</div>
+                                <div class="text-gray-600">평균 절감 금액</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (state.currentStep === 'form') {
+                if (state.formStep === 1) {
+                    app.innerHTML = `
+                        <div class="max-w-3xl mx-auto px-4 py-12">
+                            <div class="mb-8">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-pink-600">STEP 1 / 3</span>
+                                    <span class="text-sm text-gray-500">기본 정보</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-pink-500 h-2 rounded-full" style="width: 33%"></div>
+                                </div>
+                            </div>
+                            <div class="text-center mb-8">
+                                <h2 class="text-3xl font-bold mb-2">기본 정보를 알려주세요</h2>
+                                <p class="text-gray-600">예식 날짜와 예산 정보를 입력해주세요</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">예식 희망 날짜</label>
+                                    <input type="date" value="${state.formData.date}" onchange="updateField('date', this.value)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"/>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">예상 하객 수</label>
+                                    <input type="number" value="${state.formData.guests}" onchange="updateField('guests', this.value)" placeholder="예: 200" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"/>
+                                    <p class="text-xs text-gray-500 mt-1">신랑측 + 신부측 하객을 모두 합친 인원수</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">총 예산 (만원)</label>
+                                    <input type="number" value="${state.formData.budget}" onchange="updateField('budget', this.value)" placeholder="예: 3000" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"/>
+                                    <p class="text-xs text-gray-500 mt-1">식대 + 대관료 포함 총 예산</p>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-2 block">1인당 식대 예산 (만원)</label>
+                                    <input type="number" value="${state.formData.mealBudget}" onchange="updateField('mealBudget', this.value)" placeholder="예: 6" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"/>
+                                    <p class="text-xs text-gray-500 mt-1">일반적으로 5-9만원</p>
+                                </div>
+                                <div class="flex gap-3 pt-4">
+                                    <button onclick="goHome()" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50">취소</button>
+                                    <button onclick="nextStep()" class="flex-1 py-3 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-600 shadow-md">다음 단계</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (state.formStep === 2) {
+                    app.innerHTML = `
+                        <div class="max-w-3xl mx-auto px-4 py-12">
+                            <div class="mb-8">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-pink-600">STEP 2 / 3</span>
+                                    <span class="text-sm text-gray-500">선호 사항</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-pink-500 h-2 rounded-full" style="width: 66%"></div>
+                                </div>
+                            </div>
+                            <div class="text-center mb-8">
+                                <h2 class="text-3xl font-bold mb-2">선호하는 스타일을 알려주세요</h2>
+                                <p class="text-gray-600">웨딩홀 타입과 분위기를 선택해주세요</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-8 space-y-6">
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-3 block">웨딩홀 타입</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        ${['호텔', '웨딩홀', '채플'].map(t => `
+                                            <button type="button" onclick="selectOption('venueType', '${t}')" class="px-4 py-3 rounded-lg border-2 transition-all ${state.formData.venueType === t ? 'border-pink-500 bg-pink-50 text-pink-600 font-medium' : 'border-gray-200 hover:border-gray-300'}">${t}</button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-3 block">홀 분위기</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        ${['밝음', '어두움'].map(a => `
+                                            <button type="button" onclick="selectOption('atmosphere', '${a}')" class="px-4 py-3 rounded-lg border-2 transition-all ${state.formData.atmosphere === a ? 'border-pink-500 bg-pink-50 text-pink-600 font-medium' : 'border-gray-200 hover:border-gray-300'}">${a}</button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-3 block">희망 지역</label>
+                                    <select onchange="updateField('location', this.value)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500">
+                                        <option value="">선택하세요</option>
+                                        ${['강남구', '서초구', '송파구', '영등포구', '마포구', '용산구', '광진구'].map(l => `
+                                            <option value="${l}" ${state.formData.location === l ? 'selected' : ''}>${l}</option>
+                                        `).join('')}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-sm font-medium text-gray-700 mb-3 block">음식 종류</label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        ${['뷔페', '코스'].map(f => `
+                                            <button type="button" onclick="selectOption('foodType', '${f}')" class="px-4 py-3 rounded-lg border-2 transition-all ${state.formData.foodType === f ? 'border-pink-500 bg-pink-50 text-pink-600 font-medium' : 'border-gray-200 hover:border-gray-300'}">${f}</button>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="flex gap-3 pt-4">
+                                    <button onclick="prevStep()" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50">이전</button>
+                                    <button onclick="nextStep()" class="flex-1 py-3 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-600 shadow-md">다음 단계</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                } else if (state.formStep === 3) {
+                    const priorities = [
+                        {key: 'budget', label: '💰 예산', desc: '예산 내에서 최고의 가성비'},
+                        {key: 'location', label: '📍 위치/접근성', desc: '지하철역 가까운 곳'},
+                        {key: 'atmosphere', label: '✨ 홀 분위기', desc: '원하는 느낌의 홀'},
+                        {key: 'food', label: '🍽️ 음식 퀄리티', desc: '식사 만족도 높은 곳'},
+                        {key: 'rating', label: '⭐ 평점/후기', desc: '실제 이용자 만족도'},
+                        {key: 'type', label: '🏨 웨딩홀 타입', desc: '호텔/웨딩홀/채플'}
+                    ];
+                    
+                    app.innerHTML = `
+                        <div class="max-w-3xl mx-auto px-4 py-12">
+                            <div class="mb-8">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium text-pink-600">STEP 3 / 3</span>
+                                    <span class="text-sm text-gray-500">우선순위 선택</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-pink-500 h-2 rounded-full" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="text-center mb-8">
+                                <h2 class="text-3xl font-bold mb-2">가장 중요한 것을 선택하세요</h2>
+                                <p class="text-gray-600">최대 3개까지 선택 가능 (순서대로 1순위, 2순위, 3순위)</p>
+                            </div>
+                            <div class="bg-white rounded-2xl shadow-lg p-8">
+                                <div class="space-y-3 mb-6">
+                                    ${priorities.map(p => {
+                                        const rank = getPriorityRank(p.key);
+                                        const selected = rank !== null;
+                                        return `
+                                            <button onclick="togglePriority('${p.key}')" class="w-full p-4 rounded-xl border-2 transition-all text-left ${selected ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'}">
+                                                <div class="flex items-center justify-between">
+                                                    <div class="flex items-center gap-3">
+                                                        ${selected ? `<span class="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold text-sm">${rank}</span>` : '<span class="w-8 h-8 bg-gray-200 rounded-full"></span>'}
+                                                        <div>
+                                                            <div class="font-semibold ${selected ? 'text-pink-600' : 'text-gray-900'}">${p.label}</div>
+                                                            <div class="text-sm text-gray-500">${p.desc}</div>
+                                                        </div>
+                                                    </div>
+                                                    ${selected ? '<svg class="w-6 h-6 text-pink-500" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>' : ''}
+                                                </div>
+                                            </button>
+                                        `;
+                                    }).join('')}
+                                </div>
+                                <div class="bg-pink-50 border border-pink-200 rounded-lg p-4 mb-6">
+                                    <p class="text-sm text-pink-800">💡 선택한 순서대로 가중치가 적용됩니다. 1순위는 2배, 2순위는 1.5배, 3순위는 1.2배의 중요도로 계산됩니다.</p>
+                                </div>
+                                <div class="flex gap-3">
+                                    <button onclick="prevStep()" class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50">이전</button>
+                                    <button onclick="nextStep()" class="flex-1 py-3 bg-pink-500 text-white rounded-lg font-semibold hover:bg-pink-600 shadow-md">추천 결과 보기</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else if (state.currentStep === 'results') {
+                const priorityLabels = {budget: '예산', location: '위치', atmosphere: '분위기', food: '음식', rating: '평점', type: '타입'};
+                
+                app.innerHTML = `
+                    <div class="max-w-6xl mx-auto px-4 py-12">
+                        <div class="text-center mb-4">
+                            <button onclick="backToForm()" class="text-gray-600 hover:text-gray-800">← 다시 검색</button>
+                        </div>
+                        <div class="text-center mb-8">
+                            <div class="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-600 rounded-full text-sm mb-4">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                                AI 분석 완료!
+                            </div>
+                            <h2 class="text-3xl font-bold mb-2">당신을 위한 맞춤 웨딩홀</h2>
+                            <p class="text-gray-600">입력하신 정보를 바탕으로 ${state.recommendations.length}개의 웨딩홀을 찾았습니다</p>
+                            ${state.formData.priorities.length > 0 ? `
+                                <p class="text-sm text-pink-600 mt-2">
+                                    우선순위: ${state.formData.priorities.map((p, i) => `${i + 1}. ${priorityLabels[p]}`).join(' / ')}
+                                </p>
+                            ` : ''}
+                        </div>
+                        <div class="space-y-6">
+                            ${state.recommendations.map((venue, index) => `
+                                <div class="bg-white rounded-2xl shadow-lg p-6">
+                                    <div class="flex items-start justify-between mb-4 flex-wrap gap-4">
                                         <div class="flex items-start gap-4">
                                             <div class="text-6xl">${venue.image}</div>
                                             <div>
-                                                <div class="flex items-center gap-2 mb-1">
+                                                <div class="flex items-center gap-2 mb-1 flex-wrap">
                                                     ${index === 0 ? '<span class="px-2 py-1 bg-pink-500 text-white text-xs font-semibold rounded">BEST</span>' : ''}
                                                     <h3 class="text-2xl font-bold text-gray-900">${venue.name}</h3>
                                                 </div>
-                                                <div class="flex items-center gap-4 text-sm text-gray-600 flex-wrap">
-                                                    <span class="flex items-center gap-1">
-                                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                                                        </svg>
-                                                        ${venue.location}
-                                                    </span>
+                                                <div class="flex items-center gap-2 text-sm text-gray-600 flex-wrap">
+                                                    <span>📍 ${venue.location}</span>
                                                     <span>•</span>
                                                     <span>${venue.type}</span>
                                                     <span>•</span>
-                                                    <span class="flex items-center gap-1">
-                                                        <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
-                                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                                        </svg>
-                                                        ${venue.rating} (${venue.reviews}개 후기)
-                                                    </span>
+                                                    <span>⭐ ${venue.rating} (${venue.reviews}개 후기)</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -517,7 +409,6 @@
                                             <div class="text-xs text-gray-500">매칭률</div>
                                         </div>
                                     </div>
-
                                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg">
                                         <div>
                                             <div class="text-xs text-gray-500 mb-1">지하철 접근성</div>
@@ -536,7 +427,6 @@
                                             <div class="font-semibold">${venue.atmosphere}</div>
                                         </div>
                                     </div>
-
                                     <div class="mb-6 p-4 bg-pink-50 rounded-lg border-2 border-pink-100">
                                         <div class="text-sm text-gray-600 mb-2">예상 견적</div>
                                         <div class="grid grid-cols-3 gap-4">
@@ -551,76 +441,38 @@
                                             <div>
                                                 <div class="text-xs text-gray-500">총 예상 금액</div>
                                                 <div class="text-lg font-bold text-pink-500">
-                                                    ${(parseInt(venue.mealPrice.replace('만원', '')) * parseInt(formData.guests) + parseInt(venue.rentalFee.replace('만원', ''))).toLocaleString()}만원
+                                                    ${(parseInt(venue.mealPrice.replace('만원', '')) * parseInt(state.formData.guests) + parseInt(venue.rentalFee.replace('만원', ''))).toLocaleString()}만원
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="mt-2 text-xs text-gray-500">* ${formData.guests}명 기준 예상 견적입니다</div>
+                                        <div class="mt-2 text-xs text-gray-500">* ${state.formData.guests}명 기준 예상 견적입니다</div>
                                     </div>
-
                                     <div class="flex gap-3 flex-wrap">
-                                        <a
-                                            href="tel:${venue.phone}"
-                                            class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium"
-                                        >
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                                            </svg>
-                                            전화 문의
+                                        <a href="tel:${venue.phone}" class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium">
+                                            📞 전화 문의
                                         </a>
-                                        <a
-                                            href="${venue.website}"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium"
-                                        >
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
-                                            </svg>
-                                            홈페이지
+                                        <a href="${venue.website}" target="_blank" class="flex-1 min-w-[120px] px-4 py-3 bg-white border-2 border-gray-200 rounded-lg hover:border-pink-500 hover:text-pink-500 transition-colors flex items-center justify-center gap-2 font-medium">
+                                            🌐 홈페이지
                                         </a>
-                                        <a
-                                            href="https://instagram.com/${venue.instagram.replace('@', '')}"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            class="flex-1 min-w-[120px] px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-colors flex items-center justify-center gap-2 font-medium"
-                                        >
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
-                                            </svg>
-                                            인스타그램
+                                        <a href="https://instagram.com/${venue.instagram.replace('@', '')}" target="_blank" class="flex-1 min-w-[120px] px-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg hover:from-purple-600 hover:to-pink-600 transition-colors flex items-center justify-center gap-2 font-medium">
+                                            📸 인스타그램
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                        `).join('')}
+                            `).join('')}
+                        </div>
+                        <div class="mt-12 p-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl text-white text-center">
+                            <h3 class="text-2xl font-bold mb-3">스드메도 함께 찾아보세요!</h3>
+                            <p class="mb-6 opacity-90">웨딩홀을 정하셨다면, 이제 스튜디오·드레스·메이크업도 AI 추천으로 완벽하게 준비하세요</p>
+                            <button class="px-8 py-3 bg-white text-pink-500 rounded-lg font-semibold hover:shadow-lg transition-shadow">
+                                스드메 추천 받기 →
+                            </button>
+                        </div>
                     </div>
-
-                    <div class="mt-12 p-8 bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl text-white text-center">
-                        <h3 class="text-2xl font-bold mb-3">스드메도 함께 찾아보세요!</h3>
-                        <p class="mb-6 opacity-90">
-                            웨딩홀을 정하셨다면, 이제 스튜디오·드레스·메이크업도 AI 추천으로 완벽하게 준비하세요
-                        </p>
-                        <button class="px-8 py-3 bg-white text-pink-500 rounded-lg font-semibold hover:shadow-lg transition-shadow">
-                            스드메 추천 받기 →
-                        </button>
-                    </div>
-                </div>
-            `;
-        }
-
-        function render() {
-            const app = document.getElementById('app');
-            if (currentStep === 'home') {
-                app.innerHTML = renderHome();
-            } else if (currentStep === 'form') {
-                app.innerHTML = renderForm();
-            } else if (currentStep === 'results') {
-                app.innerHTML = renderResults();
+                `;
             }
         }
 
-        // 초기 렌더링
         render();
     </script>
 </body>
